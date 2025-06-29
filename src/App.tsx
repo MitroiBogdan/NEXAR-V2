@@ -17,7 +17,7 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import AuthConfirmPage from './pages/AuthConfirmPage';
 import PasswordResetPage from './pages/PasswordResetPage';
-
+  
 // Scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
