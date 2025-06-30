@@ -488,7 +488,6 @@ const ProfilePage = () => {
 									<div className="relative">
 										<div className="w-24 h-24 rounded-full border-4 border-white overflow-hidden bg-gray-200">
 											<img
-												loading="lazy"
 												width="96"
 												height="96"
 												src={
