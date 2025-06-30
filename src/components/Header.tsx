@@ -311,26 +311,21 @@ const Header = () => {
 		<header className="bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 sticky top-0 z-50">
 			<div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
 				<div className="flex justify-between items-center h-14 sm:h-16">
-					{/* Logo */}
 					<Link
 						to="/"
 						className="flex items-center group min-w-0"
-						onClick={() => {
-							// Resetează toate filtrele și starea aplicației
+						onClick={(e) => {
+							e.preventDefault(); // oprește navigarea implicită a React Router
 							window.scrollTo(0, 0);
-							// Reîncarcă pagina pentru a reseta toate filtrele
-							if (location.pathname === "/anunturi") {
-								window.location.href = "/anunturi";
-							}
+							window.location.href = "/"; // forțează reload pe homepage
 						}}
 					>
 						<img
-							loading="lazy"
 							src="/Nexar - logo_black & red.png"
 							alt="Nexar"
 							className="h-20 sm:h-24 w-auto flex-shrink-0"
 							onError={(e) => {
-								const target = e.currentTarget as HTMLImageElement;
+								const target = e.currentTarget;
 								if (target.src.includes("Nexar - logo_black & red.png")) {
 									target.src = "/nexar-logo.jpg";
 								} else if (target.src.includes("nexar-logo.jpg")) {
@@ -339,10 +334,8 @@ const Header = () => {
 									target.src = "/image.png";
 								} else {
 									target.style.display = "none";
-									const textLogo = target.nextElementSibling as HTMLElement;
-									if (textLogo) {
-										textLogo.style.display = "block";
-									}
+									const textLogo = target.nextElementSibling;
+									if (textLogo) textLogo.style.display = "block";
 								}
 							}}
 						/>

@@ -18,7 +18,7 @@ import {
 	Check,
 	User,
 } from "lucide-react";
-import { listings, romanianCities, supabase } from "../lib/supabase";
+import { listings, romanianCities, supabase } from "../lib/supabase"; // Make sure 'listings' is properly defined in supabase.ts to fetch all listings
 
 const HomePage = () => {
 	const [searchParams] = useSearchParams();
@@ -36,8 +36,8 @@ const HomePage = () => {
 		location: "",
 	});
 	const [allListings, setAllListings] = useState<any[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState(true); // Good, you have an isLoading state
+	const [error, setError] = useState<string | null>(null); // Good, you have an error state
 	const [userScrolled, setUserScrolled] = useState(false);
 	const navigate = useNavigate();
 	const itemsPerPage = 10; // Show 10 listings per page
@@ -45,7 +45,7 @@ const HomePage = () => {
 	// Load real listings from Supabase
 	useEffect(() => {
 		loadListings();
-	}, [filters, searchQuery, currentPage]);
+	}, [filters, searchQuery, currentPage]); // Dependencies are good here, triggering reload on filter/search/page change
 
 	// Update filters when URL params change
 	useEffect(() => {
@@ -65,24 +65,30 @@ const HomePage = () => {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
+	// *** This is the core function to focus on ***
 	const loadListings = async () => {
 		try {
-			setIsLoading(true);
-			setError(null);
+			setIsLoading(true); // Set loading to true at the start
+			setError(null); // Clear any previous errors
 
 			console.log("🔄 Loading listings from Supabase...");
 
-			const { data, error } = await listings.getAll();
+			// Ensure 'listings' is correctly defined in your supabase.ts
+			// For example, if it's a direct Supabase table:
+			// const { data, error: supabaseError } = await supabase.from("listings").select("*");
+			// Or if 'listings' is a custom function that already wraps Supabase:
+			const { data, error: supabaseError } = await listings.getAll(); // Renamed 'error' to 'supabaseError' to avoid conflict with component's 'error' state
 
-			if (error) {
-				console.error("❌ Error loading listings:", error);
-				setError("Nu s-au putut încărca anunțurile");
+			if (supabaseError) {
+				// Check for Supabase-specific errors
+				console.error("❌ Error loading listings:", supabaseError);
+				setError("Nu s-au putut încărca anunțurile: " + supabaseError.message); // Provide more specific error message
+				setAllListings([]); // Clear listings on error
 				return;
 			}
 
 			console.log("✅ Loaded listings:", data?.length || 0);
 
-			// Formatăm datele pentru afișare
 			const formattedListings = (data || []).map((listing: any) => ({
 				id: listing.id,
 				title: listing.title,
@@ -101,13 +107,20 @@ const HomePage = () => {
 			}));
 
 			setAllListings(formattedListings);
-		} catch (err) {
-			console.error("💥 Error in loadListings:", err);
-			setError("A apărut o eroare la încărcarea anunțurilor");
+		} catch (err: any) {
+			// Catch any unexpected errors during the process
+			console.error("💥 Error in loadListings (catch block):", err);
+			setError(
+				"A apărut o eroare neașteptată la încărcarea anunțurilor: " +
+					err.message,
+			);
+			setAllListings([]); // Clear listings on error
 		} finally {
-			setIsLoading(false);
+			setIsLoading(false); // Always set loading to false when done (success or error)
 		}
 	};
+
+	// ... rest of your code ...
 
 	// Update showFilters state when window is resized
 	useEffect(() => {
@@ -414,7 +427,7 @@ const HomePage = () => {
 										<div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden border border-gray-200">
 											{sellerAvatar ? (
 												<img
-												loading="lazy"
+													loading="lazy"
 													src={sellerAvatar}
 													alt={listing.seller}
 													className="w-full h-full object-cover"
