@@ -199,6 +199,7 @@ const ListingsPage = () => {
       <div className="flex flex-col sm:flex-row">
         <div className="relative w-full sm:w-64 flex-shrink-0">
           <img
+          loading="lazy"
             src={listing.image}
             alt={listing.title}
             className="w-full h-48 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"

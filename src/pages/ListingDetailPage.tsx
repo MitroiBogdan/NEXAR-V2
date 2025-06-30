@@ -289,6 +289,7 @@ const ListingDetailPage = () => {
 								onTouchEnd={handleTouchEnd}
 							>
 								<img
+									loading="lazy"
 									src={listing.images[currentImageIndex]}
 									alt={listing.title}
 									className="w-full h-64 sm:h-96 object-cover"
@@ -378,9 +379,9 @@ const ListingDetailPage = () => {
 									<h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
 										{listing.title}
 									</h1>
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
-                    {listing.brand} {listing.model}
-                  </h2>
+									<h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
+										{listing.brand} {listing.model}
+									</h2>
 									<div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-gray-600 text-sm">
 										<span className="flex items-center space-x-1">
 											<Calendar className="h-4 w-4" />
@@ -534,6 +535,7 @@ const ListingDetailPage = () => {
 						<div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6">
 							<div className="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6">
 								<img
+									loading="lazy"
 									src={listing.seller.avatar}
 									alt={listing.seller.name}
 									className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover"

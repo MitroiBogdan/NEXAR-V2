@@ -414,6 +414,7 @@ const HomePage = () => {
 										<div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden border border-gray-200">
 											{sellerAvatar ? (
 												<img
+												loading="lazy"
 													src={sellerAvatar}
 													alt={listing.seller}
 													className="w-full h-full object-cover"

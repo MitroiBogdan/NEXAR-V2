@@ -527,6 +527,7 @@ const AuthPage = () => {
 					<div className="text-center mb-6 sm:mb-8">
 						<div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-6">
 							<img
+							loading="lazy"
 								src="/Nexar - logo_black & red.png"
 								alt="Nexar Logo"
 								className="h-20 sm:h-24 md:h-28 w-auto"

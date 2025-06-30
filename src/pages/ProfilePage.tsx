@@ -488,6 +488,7 @@ const ProfilePage = () => {
 									<div className="relative">
 										<div className="w-24 h-24 rounded-full border-4 border-white overflow-hidden bg-gray-200">
 											<img
+												loading="lazy"
 												width="96"
 												height="96"
 												src={
@@ -981,6 +982,7 @@ const ProfilePage = () => {
 													<div className="flex flex-col sm:flex-row">
 														<div className="relative w-full sm:w-48 h-40 sm:h-auto">
 															<img
+																loading="lazy"
 																src={
 																	listing.images && listing.images[0]
 																		? listing.images[0]

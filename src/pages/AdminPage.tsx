@@ -533,6 +533,7 @@ const AdminPage = () => {
 													<div className="flex items-center">
 														<div className="h-10 w-10 flex-shrink-0">
 															<img
+															loading="lazy"
 																className="h-10 w-10 rounded-md object-cover"
 																src={
 																	listing.images && listing.images[0]
@@ -807,6 +808,7 @@ const AdminPage = () => {
 														<div className="h-10 w-10 flex-shrink-0">
 															{user.avatar_url ? (
 																<img
+																loading="lazy"
 																	className="h-10 w-10 rounded-full object-cover"
 																	src={user.avatar_url}
 																	alt={user.name}

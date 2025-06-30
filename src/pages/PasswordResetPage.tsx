@@ -105,6 +105,7 @@ const PasswordResetPage = () => {
           {/* Logo */}
           <div className="flex justify-center mb-6">
             <img 
+            loading="lazy"
               src="/Nexar - logo_black & red.png" 
               alt="Nexar Logo" 
               className="h-24 w-auto"

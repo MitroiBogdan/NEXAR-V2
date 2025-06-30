@@ -839,6 +839,7 @@ const EditListingPage = () => {
                 {images.map((image, index) => (
                   <div key={index} className="relative group">
                     <img
+                    loading="lazy"
                       src={image}
                       alt={`Upload ${index + 1}`}
                       className="w-full h-48 object-cover rounded-lg"
