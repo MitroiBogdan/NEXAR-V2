@@ -353,21 +353,23 @@ const AuthPage = () => {
 
 				if (error) {
 					console.error("❌ Login error:", error);
-					if (error.message.includes("Invalid login credentials")) {
+
+					const errorMessage = (error as { message: string }).message;
+
+					if (errorMessage.includes("Invalid login credentials")) {
 						setError("Email sau parolă incorectă");
-					} else if (error.message.includes("Email not confirmed")) {
+					} else if (errorMessage.includes("Email not confirmed")) {
 						setError(
 							"Te rugăm să-ți confirmi email-ul înainte de a te conecta",
 						);
-					} else if (error.message.includes("Too many requests")) {
+					} else if (errorMessage.includes("Too many requests")) {
 						setError("Prea multe încercări. Te rugăm să aștepți câteva minute");
 					} else {
-						setError(error.message);
+						setError(errorMessage);
 					}
 				} else if (data?.user) {
-					navigate("/"); // redirecționează către ruta cu HomePage
 					console.log("✅ Login successful for:", data.user.email);
-					// Redirect will happen via auth state change
+					navigate("/"); // redirecționează către ruta cu HomePage
 				}
 			} else {
 				// Register
@@ -386,29 +388,30 @@ const AuthPage = () => {
 				if (error) {
 					console.error("❌ Registration error:", error);
 
-					// Gestionăm erorile de înregistrare mai bine
+					const errorMessage = (error as { message: string }).message;
+
 					if (
-						error.message.includes("already registered") ||
-						error.message.includes("User already registered")
+						errorMessage.includes("already registered") ||
+						errorMessage.includes("User already registered")
 					) {
 						setError(
 							"Acest email este deja înregistrat. Încearcă să te conectezi în schimb.",
 						);
-					} else if (error.message.includes("Password should be at least")) {
+					} else if (errorMessage.includes("Password should be at least")) {
 						setError("Parola trebuie să aibă cel puțin 6 caractere");
 					} else if (
-						error.message.includes("Unable to validate email") ||
-						error.message.includes("invalid")
+						errorMessage.includes("Unable to validate email") ||
+						errorMessage.includes("invalid")
 					) {
 						setError(
 							"Email-ul introdus nu este valid. Te rugăm să verifici formatul.",
 						);
-					} else if (error.message.includes("signup_disabled")) {
+					} else if (errorMessage.includes("signup_disabled")) {
 						setError(
 							"Înregistrarea este temporar dezactivată. Te rugăm să încerci mai târziu.",
 						);
 					} else {
-						setError(`Eroare la înregistrare: ${error.message}`);
+						setError(`Eroare la înregistrare: ${errorMessage}`);
 					}
 				} else if (data?.user) {
 					console.log("✅ Registration successful for:", data.user.email);
@@ -460,7 +463,8 @@ const AuthPage = () => {
 			const { error } = await auth.resetPassword(formData.email.trim());
 
 			if (error) {
-				setError(error.message);
+				const errorMessage = (error as { message: string }).message;
+				setError(errorMessage);
 			} else {
 				setSuccessMessage(
 					"Un email pentru resetarea parolei a fost trimis. Verifică-ți căsuța de email.",
@@ -494,7 +498,8 @@ const AuthPage = () => {
 
 			if (error) {
 				console.error("Error setting new password:", error);
-				setError(`Eroare la setarea noii parole: ${error.message}`);
+				const errorMessage = (error as { message: string }).message;
+				setError(`Eroare la setarea noii parole: ${errorMessage}`);
 			} else {
 				setSuccessMessage(
 					"Parola a fost actualizată cu succes! Te poți conecta acum cu noile credențiale.",
