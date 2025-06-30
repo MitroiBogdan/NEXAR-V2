@@ -245,12 +245,20 @@ const ProfilePage = () => {
 				if (avatarError) {
 					console.error("Error uploading avatar:", avatarError);
 					alert("Eroare la încărcarea avatarului");
-				} else if (avatarData) {
-					// Actualizăm profilul cu noul avatar
-					setProfile((prev) => ({
+				} else if (
+					avatarData &&
+					avatarData.length > 0 &&
+					avatarData[0].avatar_url
+				) {
+					setProfile((prev: any) => ({
 						...prev,
-						avatar_url: avatarData.avatar_url,
+						avatar_url: avatarData[0].avatar_url,
 					}));
+				} else {
+					console.error("avatarData nu conține avatar_url:", avatarData);
+					alert(
+						"Avatarul a fost încărcat, dar nu s-a putut actualiza profilul.",
+					);
 				}
 			}
 
@@ -277,7 +285,7 @@ const ProfilePage = () => {
 
 			// Actualizăm și anunțurile cu noul nume
 			await loadUserListings(profile.id);
-
+			window.location.reload();
 			alert("Profilul a fost actualizat cu succes!");
 		} catch (err) {
 			console.error("Error saving profile:", err);
@@ -331,7 +339,7 @@ const ProfilePage = () => {
 
 			if (error) {
 				console.error("Error updating password:", error);
-				alert(`Eroare la actualizarea parolei: ${error.message}`);
+				alert(`Eroare la actualizarea parolei: ${error}`);
 				return;
 			}
 
