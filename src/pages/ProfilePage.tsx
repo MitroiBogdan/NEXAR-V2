@@ -983,21 +983,23 @@ const ProfilePage = () => {
 													<div className="flex flex-col sm:flex-row">
 														<div className="relative w-full sm:w-48 h-40 sm:h-auto">
 															<img
-																loading="lazy"
 																src={
-																	listing.images && listing.images[0]
+																	listing.imagesThumbs &&
+																	listing.imagesThumbs[0]
+																		? listing.imagesThumbs[0]
+																		: listing.images && listing.images[0]
 																		? listing.images[0]
 																		: "https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg"
 																}
 																alt={listing.title}
 																className="w-full h-full object-cover"
 																onError={(e) => {
-																	const target =
-																		e.currentTarget as HTMLImageElement;
+																	const target = e.currentTarget;
 																	target.src =
 																		"https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg";
 																}}
 															/>
+
 															<div className="absolute top-2 left-2">
 																<span className="bg-nexar-accent text-white px-2 py-1 rounded-full text-xs font-semibold">
 																	{listing.category}

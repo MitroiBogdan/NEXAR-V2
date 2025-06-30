@@ -289,13 +289,14 @@ const ListingDetailPage = () => {
 								onTouchEnd={handleTouchEnd}
 							>
 								<img
-									loading="lazy"
-									src={listing.images[currentImageIndex]}
+									src={
+										listing.imagesThumbs?.[currentImageIndex] ||
+										listing.images[currentImageIndex]
+									}
 									alt={listing.title}
 									className="w-full h-64 sm:h-96 object-cover"
 									onError={(e) => {
-										// Fallback la imagine placeholder dacă imaginea nu se încarcă
-										const target = e.currentTarget as HTMLImageElement;
+										const target = e.currentTarget;
 										target.src =
 											"https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg";
 									}}
