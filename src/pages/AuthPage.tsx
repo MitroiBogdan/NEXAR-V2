@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import HomePage from "./HomePage";
 import {
 	Eye,
 	EyeOff,
@@ -364,6 +365,7 @@ const AuthPage = () => {
 						setError(error.message);
 					}
 				} else if (data?.user) {
+					navigate("/"); // redirecționează către ruta cu HomePage
 					console.log("✅ Login successful for:", data.user.email);
 					// Redirect will happen via auth state change
 				}
@@ -433,7 +435,7 @@ const AuthPage = () => {
 						// Redirecționăm către pagina principală după 2 secunde
 						setTimeout(() => {
 							navigate("/");
-						}, 2000);
+						}, 288888000);
 					}
 				}
 			}
@@ -527,7 +529,7 @@ const AuthPage = () => {
 					<div className="text-center mb-6 sm:mb-8">
 						<div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-6">
 							<img
-							loading="lazy"
+								loading="lazy"
 								src="/Nexar - logo_black & red.png"
 								alt="Nexar Logo"
 								className="h-20 sm:h-24 md:h-28 w-auto"
